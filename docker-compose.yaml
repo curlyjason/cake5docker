@@ -14,19 +14,21 @@ services:
         ports:
             - "${DB_PORT}:3306"
 
-    web:
-        image: httpd:latest
-        ports:
-            - "${WEB_PORT}:80"
-        volumes:
-            - ./docker/apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
-            - ./:/usr/local/apache2/htdocs
+#    web:
+#        image: httpd:latest
+#        ports:
+#            - "${WEB_PORT}:80"
+#        volumes:
+#            - ./docker/apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+#            - ./:/usr/local/apache2/htdocs
 
         # php
     app:
         build:
-            dockerfile: ./docker/php/Dockerfile
-#        volumes:
+            dockerfile: ./docker/php-apache/Dockerfile
+        ports:
+            - "${WEB_PORT}:80"
+        #        volumes:
 #            - ./:/application
         environment:
 #            MYSQL_HOST: db
