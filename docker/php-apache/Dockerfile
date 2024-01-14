@@ -17,3 +17,13 @@ RUN docker-php-ext-install intl
 
 RUN docker-php-ext-install zip
 
+RUN apt install nano
+
+COPY ./docker/php-apache/apache2/sites-enabled/001-rci.conf /etc/apache2/sites-available/001-rci.conf
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+    && a2enmod rewrite \
+    && a2dissite 000-default \
+    && a2ensite 001-rci \
+    && service apache2 restart
+
