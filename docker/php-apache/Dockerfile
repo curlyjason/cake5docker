@@ -1,8 +1,7 @@
 FROM php:8.2-apache
-#WORKDIR /var/www/html
 
 COPY . .
-#COPY ./src/ src
+
 EXPOSE 80
 
 RUN docker-php-ext-install pdo pdo_mysql
@@ -19,11 +18,11 @@ RUN docker-php-ext-install zip
 
 RUN apt install nano
 
-COPY ./docker/php-apache/apache2/sites-enabled/001-rci.conf /etc/apache2/sites-available/001-rci.conf
+COPY ./docker/php-apache/apache2/sites-enabled/001-site.conf /etc/apache2/sites-available/001-site.conf
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && a2enmod rewrite \
     && a2dissite 000-default \
-    && a2ensite 001-rci \
+    && a2ensite 001-site \
     && service apache2 restart
 

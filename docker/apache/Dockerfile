@@ -1,1 +1,0 @@
-FROM httpd/httpd:latest
